@@ -1,7 +1,8 @@
 # Byter
 A basic 8-bit, bit serial CPU in 74HCxx Logic.
 
-![image](https://github.com/user-attachments/assets/f8e88638-3eb9-4316-be43-8a8c72021261)
+![image](https://github.com/user-attachments/assets/ec734f51-9816-43f2-b17a-963f365d8bd3)
+
 
 
 Bit Serial Arithmetic is sufficiently obscure to most - you have to start with the basics.
@@ -18,6 +19,8 @@ Finally you need a a clock sequencer to make it all work correctly.
 
 
 This repo - will takes you through the basics:
+
+The following is NOT a full CPU, it is just an ALU testbed to ensure that the serial arithmetic process is working correctly.
 
 1. INSTRUCTION DECODER
 
@@ -62,7 +65,7 @@ The clock is split up into a series of timing pulses. There are several ways to 
 I show 3 registers, The Accumulator AC, The B-Register and an Output Register. Theoutput register just follows the Accumulator - but just latches its output result at the end of the machine cycle. All are 8-bits and they are co-ordinated by the timing pulses and the gated clock stream GCLK.
 
 
-
+In the next part, I will show how other ICs can be used to replace U1, U2, U10,11,12,13.
 
 
 
