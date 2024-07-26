@@ -59,7 +59,7 @@ The clock is split up into a series of timing pulses. There are several ways to 
 
 4. Registers.
 
-I show 3 registers, The Accumulator AC, The B-Register and an Output Register. All are 8-bits and they are co-ordinated by the timing pulses and the gated clock stream GCLK.
+I show 3 registers, The Accumulator AC, The B-Register and an Output Register. Theoutput register just follows the Accumulator - but just latches its output result at the end of the machine cycle. All are 8-bits and they are co-ordinated by the timing pulses and the gated clock stream GCLK.
 
 
 
