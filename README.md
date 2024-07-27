@@ -3,7 +3,7 @@ A basic 8-bit, bit serial CPU in 74HCxx Logic.
 
 ![image](https://github.com/user-attachments/assets/ec734f51-9816-43f2-b17a-963f365d8bd3)
 
-PART 1. Getting Startedon the basics.
+PART 1. Getting Started On The Basics.
 
 Bit Serial Arithmetic is sufficiently obscure to most - you have to start with the basics.
 
@@ -212,6 +212,11 @@ I have given this a revamp to remove the diode array and the octal inverter. It 
 
 
 The ALU has also receiveed a makeover. Using the 74HC283 and 74HC126 it now has the additional functionality to accept a serial Program Counter.
+
+BYTER now stands at 12 IC packages and is now ready to be converter from an anaemic calculator to a full system with ROM, RAM and I/O. Further IC reductions could be made by putting the entire INstruction Decoder, ALU, Program Counter logic and multiplexers into a small ROM.  About 4 or 5 ICs could be saved in this manner 
+
+![image](https://github.com/user-attachments/assets/e5a3f202-fa1d-4e79-81c1-52c15611616a)
+
 
 
 
