@@ -3,7 +3,7 @@ A basic 8-bit, bit serial CPU in 74HCxx Logic.
 
 ![image](https://github.com/user-attachments/assets/ec734f51-9816-43f2-b17a-963f365d8bd3)
 
-PART 1. Getting Started On The Basics.
+## PART 1. Getting Started On The Basics.
 
 Bit Serial Arithmetic is sufficiently obscure to most - you have to start with the basics.
 
@@ -142,7 +142,7 @@ The Instruction decoding logic can be simplified and the Carry Suppress logic mo
 The clock sequencer counter may be set to generate different numbers of pulses in the clock burst. These van be used to control the Accumulator to provide left and right shift operations and also a nybble swap operation between the upper 4-bits and the lower 4-bits.
 
 
-Part 2. Reducing package count - or getting more bang for your buck!
+## Part 2. Reducing package count - or getting more bang for your buck!
 
 All combinational logic may ultimately be reduced to a ROM or other programmable logic such as PAL, GAL or FPGA.  These are all "blackbox" solutions, and not easy to follow as a newcomer to bit serial architechtures.
 
@@ -216,6 +216,14 @@ The ALU has also receiveed a makeover. Using the 74HC283 and 74HC126 it now has 
 BYTER now stands at 12 IC packages and is now ready to be converter from an anaemic calculator to a full system with ROM, RAM and I/O. Further IC reductions could be made by putting the entire INstruction Decoder, ALU, Program Counter logic and multiplexers into a small ROM.  About 4 or 5 ICs could be saved in this manner 
 
 ![image](https://github.com/user-attachments/assets/e5a3f202-fa1d-4e79-81c1-52c15611616a)
+
+
+## PART 3. Adding Program Memory
+
+A 16-bit Program Counter is needed to access the stored program in ROM. The Program Counter is just a pair of serial in, parallel output shift registers, coupled with a half adder and a multiplexer to allow jumps.
+
+![Uploading image.png…]()
+
 
 
 
