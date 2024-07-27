@@ -170,4 +170,36 @@ For our purposes we are going to split it into 2 sections, a 1-bit half-adder an
 
 A half-adder adds 2 binary digits producing the outputs 00, 01, 10 or 11.  It cannot produce an output 100, which would propagate a carry into the next stage. 
 
+We rely on this certainty, to allow us to split a 74HC283 into 2 entirely separate halves.
+
+![image](https://github.com/user-attachments/assets/329d07f3-a932-4be9-b9fe-c0a31888c48d)
+
+In the sketch above, the half-adder for the Program Counter is constrained to the left hand side of the IC, whilst the full-adder for the ALU is constrained to the right-hand side of the IC.  The half-adder can never propagate a carry beyond S2, so is effectively isolated from S3 and S4.
+
+The remaining XOR gate is the means to invert the bitstream from the B-register when we are performing a A-B subtraction operation.
+
+Output Multiplexer.
+
+In our original prototype ALU, most of a 2-input quad NAND gate was being used as the output multiplexer, to select between the SUM and CARRY terms of the full-adder.
+
+A simmilar 2-input multiplexer will be needed for the Program Counter, to select between incrementing the PC by 1, or jumping to a completely new address.
+
+There are almost no independent dual 2-input multiplexers available, in a single package - so we will make our own from  quad tristate buffers, the 74HC126 and its sister chip the 74HC125. Here we rely on using the tristate enable signal to switch several signal sources onto the one data output. The 74HC126 has a logic 1 tristate enable and the 74HC125 has a logic 0 tristate enable. With a 125 and a 126 working together, we can have 4 independent 2 input multiplexers in just 2 14-pin packages.
+
+But first we look at just the '126.
+
+![image](https://github.com/user-attachments/assets/7ae05fcd-408e-4dde-8564-f4c87e9429eb)
+
+
+Here is a very specific use case, the ALU output multiplexer. Here we choose between using the ALU_SUM term or the ALU_CARRY term to provide our output function Fout.
+
+Instruction control signals I0 and I1 are used to "steer" this logic selection.
+
+If I0 is high we select the ALU_SUM, if I1 is high we select the ALU_CARRY.  If they are both low, both tristate buffers are off and a logic low is provided by the pull-down resistor.  If both I0 and I1 are high, thhe two diodes OR the outputs together providing a logical OR of the ALU operands.
+
+
+
+
+
+
 
