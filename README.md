@@ -46,17 +46,73 @@ The didode matrix and U2 (octal inverter 74HC540) cinvert these instructions int
 
 2. ALU
 
-The ALU is made entirely from basic gates. One quand 2-input XOR and three quand 2-input NANDs.  U10:U13.
+![image](https://github.com/user-attachments/assets/faf7353b-dc04-4214-82d2-fe1b1e18323d)
+
+The ALU is entirely combinational logic made entirely from basic gates.
+
+It has 12 inputs, and 5 outputs:
+
+Ain   The bitstream from the Accumulator Shift Register
+
+Bin   The bitstream from the B Shift Register
+
+Cin   Any Carry generated from the previous bit-sum
+
+InvA  Invert the A input for B-A subtraction operations
+
+InvB  Invert the B input for A-B subtraction operations
+
+Mode  Suppress Carry propagation for logical operations
+
+SetC (T1)  Set the Carry on Timing Pulse T1
+
+Sub   Asserted to indicate when a subtraction is performed
+
+LDA (T0) Timing Pulse T0 initiates loading of the Accumulator
+
+CLA  Clear Accumulator first, if a LOAD instruction is being performed
+
+I0 Instruction input 0 - selects whether ALU output is the SUM function
+
+I0 Instruction input  -  selects whether ALU output is the CARRY function
+
+I1:I0   00    ZERO 
+
+I1:I0   01    XOR
+
+I1:I0   10    AND 
+
+I1:I0   11    OR
+
+OUTPUTS:
+
+Fout  - The SUM Output of the ALU
+
+Cout  - The CARRY output of the ALU
+
+/CSET - Preset the Carry Flipflop
+
+/CRES - Pre-clear the Carry Flipflop
+
+/CLRACC - Clear the Accumulator
+
+
+
+
+One quand 2-input XOR and three quand 2-input NANDs.  U10:U13.
 
 U10, 11 and 12 make up the ALU, and U13 deals with the Carry suppress and injection logic.
 
 U10 and U11 form a full adder with the means to invert either of the two inputs A and B.
 
-U12 creates a 2 input miltiplexer that chooses either the AND term or the XOR term from the full adder.
+U12 creates a 2 input multiplexer that chooses either the AND (CARRY) term or the XOR (SUM) term from the full adder.
 
 U13 provides a means to inject a carry when it is needed and suppress the carry chain during logical operations.
 
+
 3. The Clock Sequencer.
+
+
 
 The clock is split up into a series of timing pulses. There are several ways to achieve this. I use a 4 bit counter and a SR-latch.
 
