@@ -208,6 +208,11 @@ Instruction Decoding, Subtraction and Carry Suppress Logic.
 
 I have given this a revamp to remove the diode array and the octal inverter. It still uses the same 74HC138 for the initial instruction decode, but this is followed by three basic gate packages, a 74HC00 quad 2-input NAND, a 74HC86 quad 2-input XOR and a 74HC11 triple 3-input AND. The two inverters shown are actually XOR gates with one of their inputs tided high.
 
+![image](https://github.com/user-attachments/assets/1b0324f9-dea8-4180-8db3-b5f8bba79535)
+
+
+The ALU has also receiveed a makeover. Using the 74HC283 and 74HC126 it now has the additional functionality to accept a serial Program Counter.
+
 
 
 
