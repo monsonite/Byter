@@ -24,6 +24,9 @@ The following is NOT a full CPU, it is just an ALU testbed to ensure that the se
 
 1. INSTRUCTION DECODER
 
+![image](https://github.com/user-attachments/assets/21a46953-8c0f-4d63-98e7-f3a0cae0e346)
+
+
 We start with the instruction Decoder.  U1 (74HC138) decodes the 3-bit instruction in IR6:4 into one of the 8 fundamental instruction groups:
 
 LOAD
@@ -42,13 +45,15 @@ STORE
 
 JUMP
 
-The didode matrix and U2 (octal inverter 74HC540) cinvert these instructions into control signals that will control the ALU.
+The didode matrix and U2 (octal inverter 74HC540) convert these instructions into control signals that will control the ALU.
+
+The Instruction Decoder is entirely combinational logic, so could be reduced to basic gates or even coded into a ROM.
 
 2. ALU
 
 ![image](https://github.com/user-attachments/assets/faf7353b-dc04-4214-82d2-fe1b1e18323d)
 
-The ALU is entirely combinational logic made entirely from basic gates.
+The ALU is entirely combinational logic made entirely from basic gates so could be coded into a ROM.
 
 It has 12 inputs, and 5 outputs:
 
@@ -112,13 +117,18 @@ U13 provides a means to inject a carry when it is needed and suppress the carry 
 
 3. The Clock Sequencer.
 
+![image](https://github.com/user-attachments/assets/be8e1062-0d5c-4e0a-af4f-e911b3f7ff1c)
 
+The clock sequencer is based around a 4-bit counter (74HC161) U8. When clocked, this counter will count from 0 to 15 and on the $0F count produces the RCO (Ripple Carry Out) signal. RCO is captured by one half of the dual flipflop U9 and is used to produce true and complementary timing pulses RUN and T0.
 
-The clock is split up into a series of timing pulses. There are several ways to achieve this. I use a 4 bit counter and a SR-latch.
+U7 (74HC00) is a clock gating circuit.  Two of the NAND gates are configured as a SR latch. RES goes low, and is used to reset the latch. This makes the output RST high and allows the clock signal CLK to pass to the counter U8. when RST goes high the counter is taken out of reset and begins to count upwards from 0 to 15.
+
+RST is effectively a clock gating signal. When high it allows a burst of clocks to be sent to the various shift registers - thus synchronising their operations. The inverted form of RST is available from the output of the lower NAND gate. This can be used as a /CE or /SS (slave select) signal for enabling SPI peripherals
+
 
 4. Registers.
 
-I show 3 registers, The Accumulator AC, The B-Register and an Output Register. Theoutput register just follows the Accumulator - but just latches its output result at the end of the machine cycle. All are 8-bits and they are co-ordinated by the timing pulses and the gated clock stream GCLK.
+I show 3 registers, The Accumulator AC, The B-Register and an Output Register. The output register just follows the Accumulator - but just latches its output result at the end of the machine cycle. All are 8-bits and they are co-ordinated by the timing pulses and the gated clock stream GCLK.
 
 
 In the next part, I will show how other ICs can be used to replace U1, U2, U10,11,12,13.
