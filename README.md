@@ -45,7 +45,7 @@ STORE
 
 JUMP
 
-The didode matrix and U2 (octal inverter 74HC540) convert these instructions into control signals that will control the ALU.
+The didode matrix and U2 (octal inverter 74HC540) converts these instructions into control signals that will control the ALU and carry logic.
 
 The Instruction Decoder is entirely combinational logic, so could be reduced to basic gates or even coded into a ROM.
 
