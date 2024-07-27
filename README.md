@@ -3,7 +3,7 @@ A basic 8-bit, bit serial CPU in 74HCxx Logic.
 
 ![image](https://github.com/user-attachments/assets/ec734f51-9816-43f2-b17a-963f365d8bd3)
 
-
+PART 1. Getting Startedon the basics.
 
 Bit Serial Arithmetic is sufficiently obscure to most - you have to start with the basics.
 
@@ -142,5 +142,32 @@ The Instruction decoding logic can be simplified and the Carry Suppress logic mo
 The clock sequencer counter may be set to generate different numbers of pulses in the clock burst. These van be used to control the Accumulator to provide left and right shift operations and also a nybble swap operation between the upper 4-bits and the lower 4-bits.
 
 
+Part 2. Reducing package count - or getting more bang for your buck!
+
+All combinational logic may ultimately be reduced to a ROM or other programmable logic such as PAL, GAL or FPGA.  These are all "blackbox" solutions, and not easy to follow as a newcomer to bit serial architechtures.
+
+However, by carefully choosing devices that are more specialised, and contain more logic than basic 2-input gates, fairly large savings may be made in package count, and in some cases, these devices offer additional functionality, which previously would have required further packages.
+
+I am initially going to focus on the Instruction Decoder and ALU. Between these sub-circuits, they use 6 packages, 1x 20 pin, 1x 16 pin and 4x 14-pin - plus an array of 15 diodes, which on a pcb would take up the same space as a pair of 14 pin DILs. 
+
+We will keep U1, the 74HC138, as this is a very convenient way to perform the first stage of instruction decoding. We will eliminate the octal inverter and the diode matrix and its accompanying pull-up resistors.
+
+We will minimise the rest of the decode logic finding a better overall solution for U12 and U13.
+
+At the same time we will start to turn this manual adder/subtractor into a working CPU, allowing it to run stored programs from parallel memory.
+
+This will require a Program Counter and additional circuitry, some of which will be absorbed into the enhanced ALU design.
+
+A Better ALU Solution.
+
+At this stage I would like to introduce the 74HC283 - it is a 4-bit parallel adder, with fast carry logic. Here you might say, but we only need a 1-bit full adder - a valid point. But the 74HC283 can provide an independent 1-bit full adder, and an independent 1-bit half-adder, which is exactly what we require for the Program Counter.
+
+![image](https://github.com/user-attachments/assets/152b3b65-bce4-4a73-b108-997ff6d804e6)
+
+Here is the internal logic equivalent of the 74HC283. It contains a total of 50 inverters, buffers and multi-input gates.
+
+For our purposes we are going to split it into 2 sections, a 1-bit half-adder and a 1-bit full adder.  
+
+A half-adder adds 2 binary digits producing the outputs 00, 01, 10 or 11.  It cannot produce an output 100, which would propagate a carry into the next stage. 
 
 
