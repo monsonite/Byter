@@ -222,7 +222,8 @@ BYTER now stands at 12 IC packages and is now ready to be converter from an anae
 
 A 16-bit Program Counter is needed to access the stored program in ROM. The Program Counter is just a pair of serial in, parallel output shift registers, coupled with a half adder and a multiplexer to allow jumps.
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/8fbf6525-6efa-4cf1-8bd5-ab08e507b98a)
+
 
 
 
