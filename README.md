@@ -102,7 +102,7 @@ Cout  - The CARRY output of the ALU
 /CLRACC - Clear the Accumulator
 
 
-
+Details:
 
 One quand 2-input XOR and three quand 2-input NANDs.  U10:U13.
 
@@ -123,7 +123,11 @@ The clock sequencer is based around a 4-bit counter (74HC161) U8. When clocked, 
 
 U7 (74HC00) is a clock gating circuit.  Two of the NAND gates are configured as a SR latch. RES goes low, and is used to reset the latch. This makes the output RST high and allows the clock signal CLK to pass to the counter U8. when RST goes high the counter is taken out of reset and begins to count upwards from 0 to 15.
 
-RST is effectively a clock gating signal. When high it allows a burst of clocks to be sent to the various shift registers - thus synchronising their operations. The inverted form of RST is available from the output of the lower NAND gate. This can be used as a /CE or /SS (slave select) signal for enabling SPI peripherals
+RST is effectively a clock gating signal. When high it allows a burst of clocks to be sent to the various shift registers - thus synchronising their operations. The inverted form of RST is available from the output of the lower NAND gate. This can be used as a /CE or /SS (slave select) signal for enabling SPI peripherals.
+
+Carry Flipflop.
+
+The other half of dual flipflop U9 is the "Carry Flipflop".  If a positive carry is generated during a bit-sum, it will be stored in U9B and presented to the Carry In (Cin) input of the ALU on the next clock cycle. The set and reset inputs of the flipflop are used to set or clear the carry, as required by the instruction being performed. For example a subtraction requires the carry to be set first at the start of the calculation but bitwise boolean logical operations require the carry to be suppressed for the duration of the operation so that it does not propagate between the bits and corrupt the operation.
 
 
 4. Registers.
@@ -131,7 +135,11 @@ RST is effectively a clock gating signal. When high it allows a burst of clocks 
 I show 3 registers, The Accumulator AC, The B-Register and an Output Register. The output register just follows the Accumulator - but just latches its output result at the end of the machine cycle. All are 8-bits and they are co-ordinated by the timing pulses and the gated clock stream GCLK.
 
 
-In the next part, I will show how other ICs can be used to replace U1, U2, U10,11,12,13.
+In the next part, I will show how other ICs can be used to replace U2, U10, 11, 12, 13 thus reducing the package count.  
+
+The Instruction decoding logic can be simplified and the Carry Suppress logic moved to the Carry Flipflop, rather than using additional NAND gates.
+
+The clock sequencer counter may be set to generate different numbers of pulses in the clock burst. These van be used to control the Accumulator to provide left and right shift operations and also a nybble swap operation between the upper 4-bits and the lower 4-bits.
 
 
 
