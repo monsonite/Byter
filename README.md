@@ -191,11 +191,18 @@ But first we look at just the '126.
 ![image](https://github.com/user-attachments/assets/7ae05fcd-408e-4dde-8564-f4c87e9429eb)
 
 
-Here is a very specific use case, the ALU output multiplexer. Here we choose between using the ALU_SUM term or the ALU_CARRY term to provide our output function Fout.
+Here is a very specific use case, the ALU output multiplexer. Only the right hand of the IC is being used, the left hand side is available as another multiplexer.
+
+We choose between using the ALU_SUM term or the ALU_CARRY term to provide our output function Fout.
 
 Instruction control signals I0 and I1 are used to "steer" this logic selection.
 
 If I0 is high we select the ALU_SUM, if I1 is high we select the ALU_CARRY.  If they are both low, both tristate buffers are off and a logic low is provided by the pull-down resistor.  If both I0 and I1 are high, thhe two diodes OR the outputs together providing a logical OR of the ALU operands.
+
+If we need more than two independent multiplexers, we can combine a 125 and a 126 to make a 4 independent, 2 input multiplexers in a compact 2 chip solution.
+
+
+Instruction Decoding, Subtraction and Carry Suppress Logic.
 
 
 
