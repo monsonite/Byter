@@ -204,6 +204,11 @@ If we need more than two independent multiplexers, we can combine a 125 and a 12
 
 Instruction Decoding, Subtraction and Carry Suppress Logic.
 
+![image](https://github.com/user-attachments/assets/4c33b7bd-1532-4ea1-baa2-131c8989108e)
+
+I have given this a revamp to remove the diode array and the octal inverter. It still uses the same 74HC138 for the initial instruction decode, but this is followed by three basic gate packages, a 74HC00 quad 2-input NAND, a 74HC86 quad 2-input XOR and a 74HC11 triple 3-input AND. The two inverters shown are actually XOR gates with one of their inputs tided high.
+
+
 
 
 
