@@ -22,7 +22,7 @@ This repo - will takes you through the basics:
 
 The following is NOT a full CPU, it is just an ALU testbed to ensure that the serial arithmetic process is working correctly.
 
-# 1. INSTRUCTION DECODER
+### 1. INSTRUCTION DECODER
 
 ![image](https://github.com/user-attachments/assets/21a46953-8c0f-4d63-98e7-f3a0cae0e346)
 
