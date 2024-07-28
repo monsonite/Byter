@@ -224,11 +224,48 @@ A 16-bit Program Counter is needed to access the stored program in ROM. The Prog
 
 ![image](https://github.com/user-attachments/assets/8fbf6525-6efa-4cf1-8bd5-ab08e507b98a)
 
+
+The unused left side of the ALU multiplexer is now used to provide a multiplexer for the Program Counter. The PC can either increment each machine cycle or by selecting the Jump instruction, it will be loaded with a number supplied from the B-Register.
+
+![image](https://github.com/user-attachments/assets/0e31e248-ae2a-45f0-8a23-1461228c2845)
+
+
 To accommodate a 16-bit serial Program Counter, we must make changes to the Clock Sequencer. The PC requires 16 clock pulses to increment it, whilst the remainder of the 8-bit shift registers only require 8 clock pulses.
 
-So we accept that GCLK - the gated clock is going to be a truncated version of PC-CLK, and we use output QD of the clock sequencer counter to allow only the first 8 clock pulses to reach GCLK, and the full 16 clocks to reacjh the PC.
+So we accept that GCLK - the gated clock is going to be a truncated version of PC-CLK, and we use output QD of the clock sequencer counter to allow only the first 8 clock pulses to reach GCLK, and the full 16 clocks to reach the PC.
 
 ![image](https://github.com/user-attachments/assets/2080abbc-e779-46ea-8af9-30a1339892bd)
+
+
+## PART 4. Adding SRAM.
+
+Byter can address 32K bytes of static RAM, using the common 62256 RAM device. Byter uses a modified Harvard architecture, which means that the ROM and RAM have seperate address and datapaths.
+
+Whilst the ROM is addressed using a serial Program Counter, for the RAM we will take advantage of its parallel address bus, and that we can use the outputs of the ROM to directly supply the RAM with a 15-bit address - in parallel.
+
+If bit 15 of the RAM is set to zero, the remaining 15 bits are taken to be an address in RAM, from which to load the Accumulator. For this to work, we need an Accumulator that can be loaded from an 8-bit parallel, tristate memory data bus.
+
+Here we must substitute our simple 74HC164 Accumulator, for the 8-bit, universal, bidirectional tristate 74HC299.
+
+![image](https://github.com/user-attachments/assets/ee95cb12-dbfe-4c9a-b905-54e8e666bb59)
+
+The 74HC299 is an 8-bit shift register which may be loaded either from a serial bitstream, or from a Tristate 8-bit bus. Equally, it can shift data out serially or output a byte in parallel. It is this flexibility in operation which makes it so useful in this application.
+
+The 74HC299 has two mode control inputs labelled S0 and S1, It also has two output enable inputs (/OE1, /OE2) for flexible connection to a tristate bus, and an asynchronous Master Reser (/MR) input.
+
+The datasheet may be found here:  https://www.ti.com/lit/ds/symlink/cd74hc299.pdf
+
+According to the datasheet, there are 4 modes of operation, controlled by the signals on S0 and S1.
+
+S1:S0   00     Output data to bus (Store)
+
+S1:S0   11     Input data from bus (Load)
+
+S1:S0   01     Shift Right
+
+S1:S0   10     Shift Left
+
+
 
 
 
