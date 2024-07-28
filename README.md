@@ -266,6 +266,13 @@ S1:S0   01     Shift Right
 S1:S0   10     Shift Left
 
 
+## BYTER_03
+
+![image](https://github.com/user-attachments/assets/91ae6567-54e6-4f11-b6be-eb278c5b690d)
+
+
+
+
 
 
 
