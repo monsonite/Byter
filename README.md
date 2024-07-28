@@ -224,6 +224,11 @@ A 16-bit Program Counter is needed to access the stored program in ROM. The Prog
 
 ![image](https://github.com/user-attachments/assets/8fbf6525-6efa-4cf1-8bd5-ab08e507b98a)
 
+To accommodate a 16-bit serial Program Counter, we must make changes to the Clock Sequencer. The PC requires 16 clock pulses to increment it, whilst the remainder of the 8-bit shift registers only require 8 clock pulses.
+
+So we accept that GCLK - the gated clock is going to be a truncated version of PC-CLK, and we use output QD of the clock sequencer counter to allow only the first 8 clock pulses to reach GCLK, and the full 16 clocks to reacjh the PC.
+
+![image](https://github.com/user-attachments/assets/2080abbc-e779-46ea-8af9-30a1339892bd)
 
 
 
