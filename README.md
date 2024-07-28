@@ -234,8 +234,6 @@ To accommodate a 16-bit serial Program Counter, we must make changes to the Cloc
 
 So we accept that GCLK - the gated clock is going to be a truncated version of PC-CLK, and we use output QD of the clock sequencer counter to allow only the first 8 clock pulses to reach GCLK, and the full 16 clocks to reach the PC.
 
-![image](https://github.com/user-attachments/assets/2080abbc-e779-46ea-8af9-30a1339892bd)
-
 
 ## PART 4. Adding SRAM.
 
@@ -269,6 +267,18 @@ S1:S0   10     Shift Left
 ## BYTER_03
 
 ![image](https://github.com/user-attachments/assets/91ae6567-54e6-4f11-b6be-eb278c5b690d)
+
+![image](https://github.com/user-attachments/assets/2080abbc-e779-46ea-8af9-30a1339892bd)
+
+Byter 03 takes us one step closer to a full functioning machine.  The 64K x 16-bit ROM is in place along with its 16-bit Program Counter. The RAM is connected to the Accumulator bus, but the Read/Write logic is still manual, as is the placement of an instruction.
+
+The following must be implemented:
+
+1.  Tie in the LOAD (1000) and STORE (1110) instructions to control the read and write to the RAM.
+
+2.  Connect the ROM output IR7:IR4 to the instruction decoder inputs.
+
+3.  Create a path between the ROM outputs 14:0 to the address lines 
 
 
 
