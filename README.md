@@ -49,7 +49,7 @@ The didode matrix and U2 (octal inverter 74HC540) converts these instructions in
 
 The Instruction Decoder is entirely combinational logic, so could be reduced to basic gates or even coded into a ROM.
 
-# 2. ALU
+### 2. ALU
 
 ![image](https://github.com/user-attachments/assets/faf7353b-dc04-4214-82d2-fe1b1e18323d)
 
@@ -115,7 +115,7 @@ U12 creates a 2 input multiplexer that chooses either the AND (CARRY) term or th
 U13 provides a means to inject a carry when it is needed and suppress the carry chain during logical operations.
 
 
-# 3. The Clock Sequencer.
+### 3. The Clock Sequencer.
 
 ![image](https://github.com/user-attachments/assets/be8e1062-0d5c-4e0a-af4f-e911b3f7ff1c)
 
@@ -130,7 +130,7 @@ Carry Flipflop.
 The other half of dual flipflop U9 is the "Carry Flipflop".  If a positive carry is generated during a bit-sum, it will be stored in U9B and presented to the Carry In (Cin) input of the ALU on the next clock cycle. The set and reset inputs of the flipflop are used to set or clear the carry, as required by the instruction being performed. For example a subtraction requires the carry to be set first at the start of the calculation but bitwise boolean logical operations require the carry to be suppressed for the duration of the operation so that it does not propagate between the bits and corrupt the operation.
 
 
-# 4. Registers.
+### 4. Registers.
 
 I show 3 registers, The Accumulator AC, The B-Register and an Output Register. The output register just follows the Accumulator - but just latches its output result at the end of the machine cycle. All are 8-bits and they are co-ordinated by the timing pulses and the gated clock stream GCLK.
 
