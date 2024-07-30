@@ -104,7 +104,7 @@ Cout  - The CARRY output of the ALU
 
 Details:
 
-One quand 2-input XOR and three quand 2-input NANDs.  U10:U13.
+One quand 2-input XOR and three quad 2-input NANDs.  U10:U13.
 
 U10, 11 and 12 make up the ALU, and U13 deals with the Carry suppress and injection logic.
 
